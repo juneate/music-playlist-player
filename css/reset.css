@@ -1,0 +1,70 @@
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+body {
+	margin: 0;
+}
+img {
+	max-width: 100%;
+	height: auto;
+	vertical-align: bottom;
+} 
+ul, ol, dl {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+} 
+li > ul, li > ol {
+	padding-left: 2.5em;
+} 
+input, button {
+	margin: 0;
+	font: inherit;
+}
+fieldset {
+	display: flex;
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+legend {
+	padding: 0;
+	border: none;
+}
+/* These will make "User agent stylesheet" values (Chrome) available when needed, using classes */
+ul.ul {
+	list-style-type: disc;
+}
+ol.ol {
+	list-style-type: decimal;
+}
+ul.ul, ol.ol {
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+	padding-inline-start: 2.5em;
+}
+fieldset.fieldset {
+	display: block;
+	margin-inline-start: 0.125em;
+	margin-inline-end: 0.125em;
+	padding-block-start: 0.35em;
+	padding-inline-start: 0.75em;
+	padding-inline-end: 0.75em;
+	padding-block-end: 0.625em;
+	min-inline-size: min-content;
+	border-width: 0.125em;
+	border-style: groove;
+	border-color: threedface;
+	border-image: initial;
+}
+legend.legend {
+	display: block;
+	padding-inline-start: 0.125em;
+	padding-inline-end: 0.125em;
+	border-width: initial;
+	border-style: none;
+	border-color: initial;
+	border-image: initial;
+}
