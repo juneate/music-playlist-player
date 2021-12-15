@@ -1,7 +1,6 @@
 body {
-  font-family: monospace;
+  font: 2em/1 monospace;
   margin: 1em;
-  font-size: 2em;
 }
 .player {
   display: grid;
@@ -13,16 +12,13 @@ body {
   border: 1px solid #ddd;
   border-radius: 0.5em;
   background-color: #eee;
-  background-image: linear-gradient(90deg, 
-    #a878fa 0%, #a878fa 50%, 
-    transparent 50%, transparent 100%);
-  background-size: 200% auto;
-  background-position-x: 100%;
-  animation: timer calc(1s * var(--dur, 0)) linear;
-  animation-play-state: paused;
 }
 .playing {
   animation-play-state: running;
+}
+.controls {
+  display: flex;
+  gap: 0.125em;
 }
 .play-pause {
   padding: 0;
@@ -33,6 +29,11 @@ body {
   vertical-align: middle;
   background-color: transparent;
 }
+.next-prev {
+  border: none;
+  padding: 0;
+  vertical-align: middle;
+}
 .track-name, .track-artist, .track-time, .track-duration {
   display: block;
 }
@@ -40,8 +41,6 @@ body {
   border-bottom: 2px solid rgba(0,0,0,0.5);
 }
 .track-image {
-  
-  /* height: 100%; */
   aspect-ratio: 1;
   object-fit: cover;
   height: 5em;

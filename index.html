@@ -6,7 +6,7 @@
     <title>Music Player</title>
     <meta name="description" content="Music Player">
     <meta name="author" content="Rocco P (@juneate)">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
   </head>
@@ -14,12 +14,12 @@
 
     <div class="player" id="audioPlayer">
 
-      <div>
-        <button id="playPrev" hidden>⏮</button>
-        <button class="play-pause" id="playPause" data-play="&lt;i class=&quot;far fa-play-circle&quot;&gt;&lt;/i&gt;" data-pause="&lt;i class=&quot;far fa-pause-circle&quot;&gt;&lt;/i&gt;">
+      <div class="controls">
+        <button id="playPrev" class="next-prev"><i class="fa-solid fa-angles-left"></i></button>
+        <button class="play-pause" id="playPause" data-play="&lt;i class=&quot;fa-regular fa-play-circle&quot;&gt;&lt;/i&gt;" data-pause="&lt;i class=&quot;far fa-pause-circle&quot;&gt;&lt;/i&gt;">
           <i class="far fa-play-circle"></i>
         </button>
-        <button id="playNext" hidden>⏭</button>
+        <button id="playNext" class="next-prev"><i class="fa-solid fa-angles-right"></i></button>
       </div>
 
 
@@ -32,7 +32,7 @@
       
       <data><b id="trackTime" class="track-time">-:--</b><span id="trackDuration" class="track-duration">-:--</span></data>
       
-      <input type="range" name="trackVolume" id="trackVolume" class="track-volume" min="0" max="1" value="1" step="0.01" orient="vertical">
+      <input type="range" name="trackVolume" id="trackVolume" class="track-volume" min="0" max="1" value="0.5" step="0.01" orient="vertical">
 
       <input type="range" name="trackProgress" id="trackProgress" class="track-progress" min="0" max="1" value="0" step="0.0001">
     </div>
