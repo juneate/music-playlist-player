@@ -19,22 +19,6 @@ const trackDataToDom = [
 // Current song being played from the [song] array above
 let indexToPlay = 0
 
-// TODO:
-// Only do the control events when the track is loaded...
-// If dragged but dropped in the same place, the `change` doesn't fire, leaving the draggingProgress on true
-// Make end of song go to the next song
-// Check what happens if the song ends when dragging
-// Make clicking song from playlist act as "play"
-// When playlist song is clicked, the player slips to the middle
-// Probably really need a state machine here
-// Volume
-// Default image
-// Style list items
-// Confirm that each src isn't getting its own events (that would solve some of the above, acting as a state machine almost)
-// Add `.playing` class to the player, add `.playing` to the song
-
-
-
 export const updatePlayer = (play = false) => {
 	if (currTrack.paused || play) {
 		currTrack.play().then(() => {
