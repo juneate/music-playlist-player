@@ -7,14 +7,16 @@ export const getPlaylistFromHTML = async (selector) => {
   // Store all "data-" attribute data to the object, as well as as reference to the element
   const playlist = Array.from(pl).map(track => {
     const trackData = {...track.dataset, ref: track}
-    track.addEventListener(`click`, event => {
-      loadTrack(trackData)
-    })
+    // track.addEventListener(`click`, event => {
+    //   loadTrack(trackData)
+    // })
     return trackData
   })
 
   return playlist
 }
+
+
 
 
 const setPlaylistToHtml = async (selector) => {

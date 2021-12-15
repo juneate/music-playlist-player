@@ -14,6 +14,9 @@ const trackDataToDom = [
 	{ id: `trackImage`,		prop: `img`,		default: `img/some-default-image.jpg` },
 ]
 
+// Current song being played from the [song] array above
+let indexToPlay = 0
+
 // TODO:
 // Only do the control events when the track is loaded...
 // If dragged but dropped in the same place, the `change` doesn't fire, leaving the draggingProgress on true
@@ -28,43 +31,10 @@ const trackDataToDom = [
 // Confirm that each src isn't getting its own events (that would solve some of the above, acting as a state machine almost)
 
 
-currTrack.addEventListener(`durationchange`, () => {
-	const duration = currTrack.duration === Infinity ? 0 : currTrack.duration ?? 0
-	console.log(currTrack.duration)
-
-	if (trackDuration) {
-		trackDuration.textContent = `${Math.floor(duration / 60)}:${Math.floor(duration % 60).toString().padStart(2, `0`)}`
-	}
-})
-
-currTrack.addEventListener(`timeupdate`, () => {
-	const time = currTrack.currentTime || 0
-
-	if (trackTime) {
-		trackTime.textContent = `${Math.floor(time / 60)}:${Math.floor(time % 60).toString().padStart(2, `0`)}`
-	}
-
-	if (trackProgress && !draggingProgress) {
-		trackProgress.value = time / currTrack.duration
-	}
-})
-
-trackProgress.addEventListener(`input`, event => {
-	console.log(`input`)
-	draggingProgress = true
-})
-trackProgress.addEventListener(`change`, event => {
-	// Stop music on pickup of the control
-	console.log(`changed`)
-	
-	draggingProgress = false
 
 
-	currTrack.currentTime = event.target.value * currTrack.duration
-})
-
-const updatePlayer = () => {
-	if (isPlaying) {
+const updatePlayer = (play = false) => {
+	if (currTrack.paused || play) {
 		currTrack.play().then(() => {
 			console.log(`🎶 ${currTrack.src} is now playing`)
 			//audioPlayer.style.setProperty(`--dur`, track.duration)
@@ -81,11 +51,10 @@ const updatePlayer = () => {
 	}
 }
 
-export const loadTrack = (track) => {
+export const loadTrack = (tracks, index = 0) => {
+	
+	const track = tracks[index]
 	console.log(`✅ Loading up ${track.src}`)
-
-	// Assign the track a new source url
-	currTrack.src = track.src
 
 	// Loop every property and see if it has a corresponding element	
 	trackDataToDom.forEach(t => {
@@ -95,25 +64,77 @@ export const loadTrack = (track) => {
 		}
 	})
 
-	updatePlayer()
+
+	return new Promise(resolve => {
+		// Assign the track a new source url
+		currTrack.src = track.src
+
+		currTrack.addEventListener(`canplaythrough`, event => {
+			updateDuration()
+			resolve(currTrack)
+
+			// setDuration
+		})
+	})
 	
-	return currTrack
+	//return currTrack
+}
+
+// Put into util.js
+const formatTime = (time) => {
+	return `${Math.floor(time / 60)}:${Math.floor(time % 60).toString().padStart(2, `0`)}`
+}
+
+const updateDuration = () => {
+	const duration = currTrack.duration === Infinity ? 0 : currTrack.duration ?? 0
+	console.log(currTrack.duration)
+
+	if (trackDuration) {
+		trackDuration.textContent = formatTime(duration)
+	}
 }
 
 
+export const setupPlayer = (playlist) => {
 
+	//currTrack = loadTrack(playlist, 0)
+	loadTrack(playlist, 0).then((currTrack) => {
+		console.log(`Ready!`)
 
-// Move this
-export const loadPlaylist = (playlist) => {
-	isPlaying = false
+		// Assign functionality
+		playPause.addEventListener(`click`, event => {
+			updatePlayer()
+		})
 
-	let currTrackData = playlist[0]
-	currTrack = loadTrack(currTrackData)
+		currTrack.addEventListener(`durationchange`, () => {
+			updateDuration()
+		})
 
-	playPause.addEventListener(`click`, event => {
+		currTrack.addEventListener(`timeupdate`, () => {
+			const time = currTrack.currentTime || 0
 
-		isPlaying = !isPlaying // Flip the player
-		updatePlayer()
+			if (trackTime) {
+				trackTime.textContent = formatTime(time)
+			}
+			if (trackProgress && !draggingProgress) {
+				trackProgress.value = time / currTrack.duration
+			}
+		})
+
+		trackProgress.addEventListener(`input`, event => {
+			console.log(`input`)
+			draggingProgress = true
+		})
+
+		trackProgress.addEventListener(`change`, event => {
+			// Stop music on pickup of the control
+			console.log(`changed`)
+			draggingProgress = false
+			currTrack.currentTime = event.target.value * currTrack.duration
+		})
+		
 	})
+
+	
 
 }
