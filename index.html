@@ -12,7 +12,7 @@
   </head>
   <body>
 
-    <div class="player" id="audioPlayer">
+    <section class="player" id="audioPlayer">
 
       <div class="controls">
         <button id="playPrev" class="next-prev"><i class="fa-solid fa-angles-left"></i></button>
@@ -21,7 +21,6 @@
         </button>
         <button id="playNext" class="next-prev"><i class="fa-solid fa-angles-right"></i></button>
       </div>
-
 
       <div class="track-info">
         <b id="trackName" class="track-name">Placeholder Name</b>
@@ -35,22 +34,32 @@
       <input type="range" name="trackVolume" id="trackVolume" class="track-volume" min="0" max="1" value="0.5" step="0.01" orient="vertical">
 
       <input type="range" name="trackProgress" id="trackProgress" class="track-progress" min="0" max="1" value="0" step="0.0001">
-    </div>
+    </section>
 
-    <h2>Song Queue</h2>
-    <ul class="playlist" id="audioPlaylist">
-      <li data-src="music/bensound-sunny.mp3" 
-          data-name="Benny Sound" 
-          data-artist="Benny">
-          Benny Song / Benny
-      </li>
-      <li data-src="https://cdn.pixabay.com/audio/2021/11/13/audio_cb4f1212a9.mp3" 
-          data-name="Royalty Free Song 123" 
-          data-artist="Some Artist" 
-          data-img="https://craftypixels.com/placeholder-image/400x400/e0e0e0/000000&text=Album Cover">
-          Royalty Free Song / Some Artist
-      </li>
-    </ul>
+    <section>
+      <h2>Song Queue</h2>
+      <ul class="playlist" id="audioPlaylist">
+        <li data-src="music/bensound-sunny.mp3" 
+            data-name="Benny Sound" 
+            data-artist="Benny">
+            Benny Song / Benny
+        </li>
+        <li data-src="https://cdn.pixabay.com/audio/2021/11/13/audio_cb4f1212a9.mp3" 
+            data-name="Royalty Free Song 123" 
+            data-artist="Some Artist" 
+            data-img="https://craftypixels.com/placeholder-image/400x400/e0e0e0/000000&text=Album Cover">
+            Royalty Free Song / Some Artist
+        </li>
+        <li data-src="https://cdn.pixabay.com/audio/2021/11/24/audio_82498b22da.mp3" 
+            data-name="Some random song" 
+            data-artist="Totally Makinthisup" 
+            data-img="https://images.unsplash.com/photo-1617492933185-fdb26b4c0ba1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80">
+            Some random song / Totally Makinthisup
+        </li>
+      </ul>
+    </section>
+
+
 
     <!-- <script src="https://juneate.github.io/music-playlist-player/js/script.js" type="module" defer></script> -->
     <script src="js/script.js" type="module" defer></script>

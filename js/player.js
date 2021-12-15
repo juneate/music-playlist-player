@@ -1,26 +1,26 @@
 import { formatTime } from './utils.js'
 
+const audioPlayer = document.getElementById(`audioPlayer`)
 const playPause = document.getElementById(`playPause`)
 const playPrev = document.getElementById(`playPrev`)
 const playNext = document.getElementById(`playNext`)
-
-const audioPlayer = document.getElementById(`audioPlayer`)
 const trackTime = document.getElementById(`trackTime`)
 const trackDuration = document.getElementById(`trackDuration`)
 const trackProgress = document.getElementById(`trackProgress`)
 
 let currTrack = new Audio()
 let draggingProgress = false
+let indexPlaying = 0
 
 const trackDataToDom = [
 	{ id: `trackName`,		data: `name`,		prop: `textContent`,	default: `Track Name` },
 	{ id: `trackArtist`,	data: `artist`,	prop: `textContent`,	default: `Artist Name` },
-	{ id: `trackImage`,		data: `img`,		prop: `src`,					default: `https://craftypixels.com/placeholder-image/400x400/e0e0e0/ffffff&text=Placeholder` },
 	{ id: `trackGenre`,		data: `genre`,	prop: `textContent`,	default: `Genre` },
+	{ id: `trackText`,		data: `text`,		prop: `textContent`,	default: `` },
+	{ id: `trackImage`,		data: `img`,		prop: `src`,					default: `https://craftypixels.com/placeholder-image/400x400/e0e0e0/ffffff&text=Placeholder` },
 ]
 
-// Current song being played from the [song] array above
-let indexPlaying = 0
+
 
 export const updatePlayer = (play = false) => {
 	if (currTrack.paused || play) {
