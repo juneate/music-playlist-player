@@ -61,22 +61,22 @@ body {
   grid-column: 1 / -3;
 }
 
-#playlist > * {
+.playlist > * {
   border-bottom: 1px solid rgba(0,0,0,0.1);
   line-height: 1;
   padding: 0.5em;
   border-left: 0.25em solid transparent;
 }
-#playlist > *.loaded {
+.playlist > *.loaded {
   border-left-color: royalblue;
 }
-#playlist > *:first-child {
+.playlist > *:first-child {
   border-top: 1px solid rgba(0,0,0,0.1);
 }
-#playlist > *:hover {
+.playlist > *:hover {
   background-color: rgba(0,0,0,0.1);
 }
-#playlist > *::before {
+.playlist > *::before {
   content: "\2023";
   display: inline-flex;
   align-items: center;

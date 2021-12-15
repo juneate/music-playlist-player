@@ -8,12 +8,11 @@ import { setupPlayer } from "./player.js"
 // The progress bar needs to be easier to tap into
 
 
-
 // Begin
 addEventListener(`load`, async () => {
 
   // 1. Load playlist
-  const playlist = await getPlaylistFromHTML(`#playlist`)
+  const playlist = await getPlaylistFromHTML(`#audioPlaylist`)
   console.log(playlist)
 
   // 2. Build the player?
