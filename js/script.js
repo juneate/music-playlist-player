@@ -21,7 +21,7 @@ import { setupPlayer } from "./player.js"
 addEventListener(`load`, async () => {
 
   // 1. Load playlist
-  const playlist = await getPlaylistFromHTML(`#pl li`)
+  const playlist = await getPlaylistFromHTML(`#playlist`)
   console.log(playlist)
 
   // 2. Build the player?

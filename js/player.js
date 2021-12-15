@@ -10,9 +10,10 @@ let currTrack = new Audio()
 let draggingProgress = false
 
 const trackDataToDom = [
-	{ id: `trackName`,		prop: `name`,		default: `Track Name` },
-	{ id: `trackArtist`,	prop: `artist`,	default: `Artist Name` },
-	{ id: `trackImage`,		prop: `img`,		default: `img/some-default-image.jpg` },
+	{ id: `trackName`,		data: `name`,		prop: `textContent`,	default: `Track Name` },
+	{ id: `trackArtist`,	data: `artist`,	prop: `textContent`,	default: `Artist Name` },
+	{ id: `trackImage`,		data: `img`,		prop: `src`,					default: `https://craftypixels.com/placeholder-image/400x400/e0e0e0/ffffff&text=Placeholder` },
+	{ id: `trackGenre`,		data: `genre`,	prop: `textContent`,	default: `Genre` },
 ]
 
 // Current song being played from the [song] array above
@@ -34,7 +35,7 @@ let indexToPlay = 0
 
 
 
-const updatePlayer = (play = false) => {
+export const updatePlayer = (play = false) => {
 	if (currTrack.paused || play) {
 		currTrack.play().then(() => {
 			console.log(`🎶 ${currTrack.src} is now playing`)
@@ -73,24 +74,33 @@ export const loadTrack = (tracks, index = 0) => {
 	trackDataToDom.forEach(t => {
 		const ele = document.getElementById(t.id)
 		if (ele) {
-			ele.textContent = track[t.prop] ?? t.default
+			ele[t.prop] = track[t.data] ?? t.default
 		}
 	})
 
+	document.querySelectorAll(`.loaded`).forEach(ele => ele.classList.remove(`loaded`))
+	track.ref.classList.add(`loaded`)
+
 	return new Promise(resolve => {
+		const handleMediaLoaded = event => {
+			//const currTrack = event.path[0]
+			console.log(`...track is loaded!`, currTrack.duration)
+
+			// Can setup a promise here to use an interval to wait for the time, then resolve once complete
+
+			updateTimestamp(trackDuration, currTrack.duration)
+			resolve(currTrack)
+		}
+
+		// Are these actually being removed though? Doesn't seem like it
+		currTrack.removeEventListener(`canplaythrough`, handleMediaLoaded)
+
 		// Assign the track a new source url
 		currTrack.src = track.src
-
+		
 		if (currTrack.readyState != 4) {
 			console.log(`loading...`, currTrack.readyState)
-			currTrack.addEventListener(`canplaythrough`, event => {
-				console.log(`...track is loaded!`, currTrack.duration)
-
-				// Can setup a promise here to use an interval to wait for the time, then resolve once complete
-
-				updateTimestamp(trackDuration, currTrack.duration)
-				resolve(currTrack)
-			})
+			currTrack.addEventListener(`canplaythrough`, handleMediaLoaded)
 		} else {
 			updateTimestamp(trackDuration, currTrack.duration)
 			resolve(currTrack)
@@ -118,7 +128,10 @@ export const setupPlayer = (playlist) => {
 			const time = updateTimestamp(trackTime, currTrack.currentTime)
 			
 			if (trackProgress && !draggingProgress) {
-				trackProgress.value = time / currTrack.duration
+				console.log(`timeupdate`, currTrack.duration)
+
+
+				trackProgress.value = (time / currTrack.duration) || 0
 			}
 		})
 
@@ -132,7 +145,4 @@ export const setupPlayer = (playlist) => {
 		})
 		
 	})
-
-	
-
 }

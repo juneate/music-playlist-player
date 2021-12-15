@@ -19,20 +19,21 @@
       </button>
 
       <div class="track-info">
-        <span id="trackName">Hello world</span>
-        - 
-        <span id="trackArtist">Coders United</span>
+        <b id="trackName" class="track-name">Placeholder Name</b>
+        <span id="trackArtist" class="track-artist">Placeholder Artist</span>
       </div>
 
-      <data><b id="trackTime">-:--</b>/<span id="trackDuration">-:--</span></data>
+      <img src="" alt="" id="trackImage" class="track-image">
+      
+      <data><b id="trackTime" class="track-time">-:--</b><span id="trackDuration" class="track-duration">-:--</span></data>
       
       <input type="range" name="trackVolume" id="trackVolume" class="track-volume" min="0" max="1" value="1" step="0.01" orient="vertical">
 
       <input type="range" name="trackProgress" id="trackProgress" class="track-progress" min="0" max="1" value="0" step="0.0001">
     </div>
 
-
-    <ul id="pl">
+    <h2>Song Queue</h2>
+    <ul id="playlist">
       <li data-src="music/bensound-sunny.mp3" data-name="Benny Sound" data-artist="Benny?">Benny Sound!!</li>
       <li data-src="https://cdn.pixabay.com/audio/2021/11/13/audio_cb4f1212a9.mp3" data-name="Woop woop" data-artist="Hey ohhhh">Woop woop by Heyohhh!</li>
     </ul>
