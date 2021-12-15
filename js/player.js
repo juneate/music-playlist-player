@@ -25,15 +25,21 @@ export const updatePlayer = (play = false) => {
 			console.log(`🎶 ${currTrack.src} is now playing`)
 			//audioPlayer.style.setProperty(`--dur`, track.duration)
 			audioPlayer.classList.add(`playing`)
-				playPause.querySelector(`i`).classList.remove(`fa-play-circle`)
-				playPause.querySelector(`i`).classList.add(`fa-pause-circle`)
+			if (playPause.dataset.pause) {
+				playPause.innerHTML = playPause.dataset.pause
+			}
+			//	playPause.querySelector(`i`).classList.remove(`fa-play-circle`)
+			//	playPause.querySelector(`i`).classList.add(`fa-pause-circle`)
 		})
 	} else {
 		currTrack.pause()
 		console.log(`🛑 ${currTrack.src} has been paused`)
 		audioPlayer.classList.remove(`playing`)
-			playPause.querySelector(`i`).classList.add(`fa-play-circle`)
-			playPause.querySelector(`i`).classList.remove(`fa-pause-circle`)
+		if (playPause.dataset.play) {
+			playPause.innerHTML = playPause.dataset.play
+		}
+		//	playPause.querySelector(`i`).classList.add(`fa-play-circle`)
+		//	playPause.querySelector(`i`).classList.remove(`fa-pause-circle`)
 	}
 }
 

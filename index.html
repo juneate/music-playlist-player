@@ -14,9 +14,14 @@
 
     <div class="player" id="audioPlayer">
 
-      <button class="play-pause" id="playPause">
-        <i class="far fa-play-circle"></i>
-      </button>
+      <div>
+        <button id="playPrev" hidden>⏮</button>
+        <button class="play-pause" id="playPause" data-play="&lt;i class=&quot;far fa-play-circle&quot;&gt;&lt;/i&gt;" data-pause="&lt;i class=&quot;far fa-pause-circle&quot;&gt;&lt;/i&gt;">
+          <i class="far fa-play-circle"></i>
+        </button>
+        <button id="playNext" hidden>⏭</button>
+      </div>
+
 
       <div class="track-info">
         <b id="trackName" class="track-name">Placeholder Name</b>
@@ -47,7 +52,8 @@
       </li>
     </ul>
 
-    <script src="https://juneate.github.io/music-playlist-player/js/script.js" type="module" defer></script>
+    <!-- <script src="https://juneate.github.io/music-playlist-player/js/script.js" type="module" defer></script> -->
+    <script src="js/script.js" type="module" defer></script>
 
   </body>
 </html>

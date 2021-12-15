@@ -2,12 +2,6 @@ import { getPlaylistFromHTML } from "./playlist.js"
 import { setupPlayer } from "./player.js"
 
 
-
-// Other stuff here: https://codepen.io/roccop/pen/NWpeBqw?editors=0010
-// Their songs?
-// The progress bar needs to be easier to tap into
-
-
 // Begin
 addEventListener(`load`, async () => {
 
@@ -22,6 +16,6 @@ addEventListener(`load`, async () => {
   // 3. Load the player with the playlist
   setupPlayer(playlist)
 
-  // 3. Make playlist filterable
+  // 4. Make playlist filterable
 
 })
