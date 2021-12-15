@@ -1,3 +1,5 @@
+import { formatTime } from './utils.js'
+
 const playPause = document.getElementById(`playPause`)
 const audioPlayer = document.getElementById(`audioPlayer`)
 const trackTime = document.getElementById(`trackTime`)
@@ -5,7 +7,6 @@ const trackDuration = document.getElementById(`trackDuration`)
 const trackProgress = document.getElementById(`trackProgress`)
 
 let currTrack = new Audio()
-let isPlaying = false
 let draggingProgress = false
 
 const trackDataToDom = [
@@ -29,7 +30,7 @@ let indexToPlay = 0
 // Default image
 // Style list items
 // Confirm that each src isn't getting its own events (that would solve some of the above, acting as a state machine almost)
-
+// Add `.playing` class to the player, add `.playing` to the song
 
 
 
@@ -51,6 +52,18 @@ const updatePlayer = (play = false) => {
 	}
 }
 
+const updateTimestamp = (ele, time) => {
+	const adjustedTime = time === Infinity ? 0 : time ?? 0
+	console.log(`${time} >> ${adjustedTime}`)
+
+	if (ele) {
+		ele.textContent = formatTime(adjustedTime)
+	}
+
+	return adjustedTime
+}
+
+
 export const loadTrack = (tracks, index = 0) => {
 	
 	const track = tracks[index]
@@ -64,36 +77,26 @@ export const loadTrack = (tracks, index = 0) => {
 		}
 	})
 
-
 	return new Promise(resolve => {
 		// Assign the track a new source url
 		currTrack.src = track.src
 
-		currTrack.addEventListener(`canplaythrough`, event => {
-			updateDuration()
+		if (currTrack.readyState != 4) {
+			console.log(`loading...`, currTrack.readyState)
+			currTrack.addEventListener(`canplaythrough`, event => {
+				console.log(`...track is loaded!`, currTrack.duration)
+
+				// Can setup a promise here to use an interval to wait for the time, then resolve once complete
+
+				updateTimestamp(trackDuration, currTrack.duration)
+				resolve(currTrack)
+			})
+		} else {
+			updateTimestamp(trackDuration, currTrack.duration)
 			resolve(currTrack)
-
-			// setDuration
-		})
+		}
 	})
-	
-	//return currTrack
 }
-
-// Put into util.js
-const formatTime = (time) => {
-	return `${Math.floor(time / 60)}:${Math.floor(time % 60).toString().padStart(2, `0`)}`
-}
-
-const updateDuration = () => {
-	const duration = currTrack.duration === Infinity ? 0 : currTrack.duration ?? 0
-	console.log(currTrack.duration)
-
-	if (trackDuration) {
-		trackDuration.textContent = formatTime(duration)
-	}
-}
-
 
 export const setupPlayer = (playlist) => {
 
@@ -105,30 +108,25 @@ export const setupPlayer = (playlist) => {
 		playPause.addEventListener(`click`, event => {
 			updatePlayer()
 		})
-
+		
 		currTrack.addEventListener(`durationchange`, () => {
-			updateDuration()
+			updateTimestamp(trackDuration, currTrack.duration)
 		})
 
+		// Allow the progress bar to drag without cancelling through update
 		currTrack.addEventListener(`timeupdate`, () => {
-			const time = currTrack.currentTime || 0
-
-			if (trackTime) {
-				trackTime.textContent = formatTime(time)
-			}
+			const time = updateTimestamp(trackTime, currTrack.currentTime)
+			
 			if (trackProgress && !draggingProgress) {
 				trackProgress.value = time / currTrack.duration
 			}
 		})
 
 		trackProgress.addEventListener(`input`, event => {
-			console.log(`input`)
 			draggingProgress = true
 		})
 
 		trackProgress.addEventListener(`change`, event => {
-			// Stop music on pickup of the control
-			console.log(`changed`)
 			draggingProgress = false
 			currTrack.currentTime = event.target.value * currTrack.duration
 		})
