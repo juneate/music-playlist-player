@@ -125,14 +125,17 @@ export const setupPlayer = (playlist) => {
 			}
 		})
 
-		trackProgress.addEventListener(`input`, event => {
-			draggingProgress = true
-		})
+		if (trackProgress) {
+			trackProgress.addEventListener(`input`, event => {
+				draggingProgress = true
+			})
 
-		trackProgress.addEventListener(`change`, event => {
-			draggingProgress = false
-			currTrack.currentTime = event.target.value * currTrack.duration
-		})
+			trackProgress.addEventListener(`change`, event => {
+				draggingProgress = false
+				currTrack.currentTime = event.target.value * currTrack.duration
+			})
+		}
+
 		
 	})
 }
