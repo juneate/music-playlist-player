@@ -23,13 +23,10 @@ export const updatePlayer = (play = false) => {
 	if (currTrack.paused || play) {
 		currTrack.play().then(() => {
 			console.log(`🎶 ${currTrack.src} is now playing`)
-			//audioPlayer.style.setProperty(`--dur`, track.duration)
 			audioPlayer.classList.add(`playing`)
 			if (playPause.dataset.pause) {
 				playPause.innerHTML = playPause.dataset.pause
 			}
-			//	playPause.querySelector(`i`).classList.remove(`fa-play-circle`)
-			//	playPause.querySelector(`i`).classList.add(`fa-pause-circle`)
 		})
 	} else {
 		currTrack.pause()
@@ -38,8 +35,6 @@ export const updatePlayer = (play = false) => {
 		if (playPause.dataset.play) {
 			playPause.innerHTML = playPause.dataset.play
 		}
-		//	playPause.querySelector(`i`).classList.add(`fa-play-circle`)
-		//	playPause.querySelector(`i`).classList.remove(`fa-pause-circle`)
 	}
 }
 
@@ -104,11 +99,13 @@ export const setupPlayer = (playlist) => {
 	loadTrack(playlist, 0).then((currTrack) => {
 		console.log(`Ready!`)
 
-		// Assign functionality
-		playPause.addEventListener(`click`, event => {
-			updatePlayer()
-		})
-		
+		if (playPause) {
+			// Assign functionality
+			playPause.addEventListener(`click`, event => {
+				updatePlayer()
+			})
+		}
+
 		currTrack.addEventListener(`durationchange`, () => {
 			updateTimestamp(trackDuration, currTrack.duration)
 		})
