@@ -1,5 +1,5 @@
-import { getPlaylistFromHTML } from "https://juneate.github.io/music-playlist-player/js/playlist.js"
-import { setupPlayer } from ".https://juneate.github.io/music-playlist-player/js/player.js"
+import { getPlaylistFromHTML } from "./playlist.js"
+import { setupPlayer } from "./player.js"
 
 
 
